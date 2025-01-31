@@ -101,13 +101,41 @@ document.addEventListener('DOMContentLoaded', () => {
   branches.forEach(branch => branchObserver.observe(branch));
 
   /* ======================================================
-     4. REMOVE HIGHLIGHT NAV LINKS ON SCROLL
+  . NAVBAR RESPONSIVENESS
   ======================================================= */
-  /* The following code was responsible for adding the 'active' class
-     to navigation links based on scroll position. Since we no longer
-     want to highlight the current section in the navbar, we remove this functionality.
-  */
+  const menuToggle = document.getElementById("menu-toggle");
+  const navMenu = document.querySelector(".nav-links");
 
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener("click", (event) => {
+      // Prevent event from bubbling to document click listener
+      event.stopPropagation();
+      navMenu.classList.toggle("active");
+
+      // Toggle menu icon (☰ → ✖)
+      if (navMenu.classList.contains("active")) {
+        menuToggle.innerHTML = "&times;"; // Close icon (✖)
+      } else {
+        menuToggle.innerHTML = "&#9776;"; // Hamburger icon (☰)
+      }
+    });
+
+    // Close menu when clicking a link inside the menu
+    navMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navMenu.classList.remove("active");
+        menuToggle.innerHTML = "&#9776;"; // Reset to hamburger icon
+      });
+    });
+
+    // Close menu when clicking anywhere outside of it
+    document.addEventListener("click", (event) => {
+      if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        navMenu.classList.remove("active");
+        menuToggle.innerHTML = "&#9776;"; // Reset to hamburger icon
+      }
+    });
+  }
   /* ======================================================
      5. SMOOTH SCROLL FOR NAVIGATION LINKS
   ======================================================= */
