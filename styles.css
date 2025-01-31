@@ -64,25 +64,19 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  /* Darkest surface color for navbar */
   background-color: var(--clr-surface-a0);
   padding: 1em 2em;
   z-index: 999;
-
-  /* Subtle shadow to separate from content */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .nav-logo {
-  /* Use a primary accent for text */
   color: var(--clr-primary-a40);
-  font-size: 1.3rem;
-  font-weight: 500; /* Medium weight */
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .nav-links {
@@ -92,20 +86,54 @@ body {
 }
 
 .nav-links li a {
-  color: var(--clr-primary-a30);
+  color: var(--clr-light-a0);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.2s;
+  transition: color 0.3s ease-in-out;
 }
 
-/* Remove the active state styling */
-/* .nav-links li a.active {
-  color: var(--clr-primary-a40);
-} */
-
 .nav-links li a:hover {
-  /* Slightly brighter accent on hover */
   color: var(--clr-primary-a40);
+}
+
+/* Hamburger Menu (Hidden by Default) */
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  background: None;
+  color: var(--clr-primary-a40);
+  border: none; /* Removes any default browser borders */
+  outline: none; /* Removes focus outline */
+  box-shadow: none;
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: var(--clr-surface-a0);
+    padding: 1em;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    text-align: center;
+    padding: 10px 0;
+  }
 }
 
 /*********************************************
@@ -326,25 +354,25 @@ body {
 7) TIMELINE (TREE) SECTION
 *********************************************/
 .tree-section {
-  position: relative; /* to hold absolutely positioned children */
-  overflow: hidden;   /* clip any particles that extend outside */
+  position: relative;
+  overflow: hidden;
   background-color: var(--clr-surface-a0);
   text-align: center;
   color: var(--clr-light-a0);
   padding: 4em 2em;
 }
 
-/* The tsParticles container behind the timeline content */
+/* Particle Container */
 #timeline-particles {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* behind your actual timeline text */
+  z-index: 0;
 }
 
-/* Ensure your actual timeline content is above the particles */
+/* Ensure timeline content is above particles */
 .tree-container,
 .tree-section h2 {
   position: relative;
@@ -367,6 +395,7 @@ body {
   position: relative;
 }
 
+/* Timeline vertical line */
 .tree-container .tree::after {
   content: "";
   position: absolute;
@@ -378,26 +407,23 @@ body {
   margin-left: -1px;
 }
 
-/* Each branch */
+/* Branches Styling */
 .tree .branch {
   position: relative;
   width: 50%;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
   box-sizing: border-box;
-
-  /* Fade-in default state */
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
-/* Fade-in class triggered by script */
 .tree .branch.show {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Branch content box styling */
+/* Content Box */
 .tree .branch .content {
   background-color: var(--clr-surface-tonal-a10);
   padding: 1.5em;
@@ -411,11 +437,6 @@ body {
   font-size: 1.2rem;
 }
 
-.tree .branch .content h4 {
-  margin-bottom: 0.1em;
-  font-size: 0.9rem;
-}
-
 .tree .branch .content span {
   display: block;
   font-size: 0.9rem;
@@ -423,7 +444,7 @@ body {
   color: var(--clr-primary-a20);
 }
 
-/* Positions left vs. right */
+/* Left & Right Branch Alignment */
 .branch.left {
   left: 0;
   text-align: right;
@@ -434,7 +455,7 @@ body {
   text-align: left;
 }
 
-/* Horizontal connector lines */
+/* Connector Lines */
 .branch.left::before {
   content: "";
   position: absolute;
@@ -455,29 +476,34 @@ body {
   left: -25px;
 }
 
-/* Responsive timeline stacking */
+/* Responsive Timeline for Mobile */
 @media screen and (max-width: 768px) {
   .tree-container .tree::after {
     left: 10px;
   }
-  .branch {
+
+  .tree .branch {
     width: 100%;
     padding-left: 2.5rem;
     margin-bottom: 2rem;
   }
-  .branch.left,
-  .branch.right {
+
+  .tree .branch.left,
+  .tree .branch.right {
     left: 0;
     text-align: left;
   }
+
   .branch.left::before,
   .branch.right::before {
     left: 0;
     right: auto;
   }
+
   .branch.left::before {
     top: 20px;
   }
+
   .branch.right::before {
     top: 20px;
   }
