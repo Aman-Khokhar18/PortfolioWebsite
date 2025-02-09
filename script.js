@@ -214,6 +214,8 @@ document.addEventListener('DOMContentLoaded', () => {
     chatInput.focus(); // Focus on input when modal opens
     isChatOpen = true;
 
+    chatIcon.classList.add('no-pulse');
+
     // Auto-scroll to the bottom when modal opens
     scrollToBottom();
   }
@@ -223,6 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
     chatModal.style.display = 'none';
     chatModal.setAttribute('aria-hidden', 'true');
     isChatOpen = false;
+
+    chatIcon.classList.remove('no-pulse');
   }
 
   // Function to toggle chatbot modal
@@ -407,6 +411,7 @@ certificationCards.forEach(card => certificationObserver.observe(card));
     updateCarousel();
 
     // Ensure correct width on resize
-    window.addEventListener("resize", updateCarousel);
+    window.addEventListener("resize", updateCarousel);  
   });
+  
 });
