@@ -413,5 +413,5 @@ certificationCards.forEach(card => certificationObserver.observe(card));
     // Ensure correct width on resize
     window.addEventListener("resize", updateCarousel);  
   });
-  
+  openChatModal();
 });
